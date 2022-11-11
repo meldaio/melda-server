@@ -1,0 +1,8 @@
+{
+  "Template": {
+    "TemplateName": "ContactForm",
+    "SubjectPart": "melda.io - Contact Form",
+    "TextPart": "",
+    "HtmlPart": "<strong>This message is sent from melda.io Contact Form. Please no reply to this mail. Use the email address of the sender for the contact.</strong> </br><ul><li>Sender name: {{name}}</li><li>Sender email: {{email}}</li><li>Subject: {{subject}}</li></ul><p>Message: {{text}}</p>"
+  }
+}

@@ -1,0 +1,87 @@
+doctype html
+html
+  head
+    title Melda.IO
+    meta(charset="utf8")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/default.min.css")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css")
+    style(type='text/css').
+      .cell {
+        margin-bottom: 30px;
+      }
+      pre.code {
+        margin: 10px 0;
+      }
+      iframe {
+        width: 100%;
+        border: 0;
+      }
+      iframe.isolated {
+        min-height: 400px;
+      }
+      img {
+        max-width: 100%;
+      }
+body
+  main
+    div.container
+      if project.stages
+        each stage in project.stages
+          // h2.display-5 #{stage.title}
+          if stage.cells
+            each cell in stage.cells
+              div.cell
+
+                if !cell.hiddenCode && !cell.isMarkup
+                  pre
+                    code.code(class=cell.language) #{cell.code}
+
+                if cell.output && !cell.hiddenOutput
+                  for item in cell.output
+                    - var type, content;
+
+                    if item && item.data
+                      -
+                        var isolated = item.data["text/html"]
+                          && item.metadata
+                          && item.metadata["text/html"]
+                          && item.metadata["text/html"].isolated
+
+                        if (isolated) {
+                          type = "iframe"
+                          content = item.data["text/html"]
+                        } else if (item.name === "stdout") {
+                          type = "plain"
+                          content = item.text
+                        } else if (item.data["image/png"]) {
+                          type = "image"
+                          content = item.data["image/png"]
+                        } else if (item.data["text/html"]) {
+                          type = "html"
+                          content = item.data["text/html"]
+                        } else if (item.data["text/plain"]) {
+                          type = "plain"
+                          content = item.data["text/plain"]
+                        }
+                    else if item && item.name === "stdout"
+                      -
+                        type = "plain"
+                        content = item.text
+
+                    case type
+                      when "iframe"
+                        - content = Buffer.from(content).toString("base64")
+                        iframe.isolated(src="data:text/html;base64," + (content))
+                        // iframe.isolated(src="/api/cell-html/" + cell._id + "?token=" + token)
+                      when "image"
+                        div
+                          img(src="data:image/png;base64," + content)
+                      when "html"
+                        div !{content}
+                      when "plain"
+                        pre !{content}
+
+
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js')
+  script.
+    hljs.initHighlightingOnLoad();

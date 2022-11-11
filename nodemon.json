@@ -1,0 +1,20 @@
+{
+  "ignore": [
+  	".gitignore",
+    ".git",
+    "tmp/*",
+    "node_modules/*",
+    "public",
+    "projects/*",
+    "config/client.js",
+    "modules/medical/data/*",
+    "uploads"
+  ],
+  "watch": [
+    "../client/src/",
+    "../melda-client/src/",
+    "./*"
+  ],
+  "ext": "js,json,vue"
+}
+

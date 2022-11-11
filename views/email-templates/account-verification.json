@@ -1,0 +1,8 @@
+{
+  "Template": {
+    "TemplateName": "AccountVerification",
+    "SubjectPart": "melda.io - Verify Your Account",
+    "TextPart": "Dear {{name}}, use this link to verify your account: {{url}} \n This link will expire in 12 hours. \n Please do not reply to this email as this inbox is not monitored. \n For assistance please contact us at connect@pranageo.com",
+    "HtmlPart": "<h1><br>melda.io</h1><h2>Account verification</h2><h1>Dear {{name}},</h1><a href={{url}}>Click here to verify your melda.io account</a> This link will expire in 12 hours."
+  }
+}

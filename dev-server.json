@@ -1,0 +1,25 @@
+{
+  "apps": [
+    {
+      "name": "melda-server",
+      "script": "./index.js",
+      "instances": 1,
+      "exec_mode": "fork",
+      "watch": [
+        "routes",
+        "views",
+        "models",
+        "collections",
+        "lib",
+        "*.js",
+        "*.json"
+      ],
+      "nodeArgs": [
+        "--inspect=9559"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+}
